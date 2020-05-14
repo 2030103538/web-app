@@ -1,6 +1,7 @@
 import React from "react"
 import { Layout, Menu } from 'antd';
 import { withRouter, Link } from "react-router-dom"
+import PropTypes from "prop-types"
 import {
     UserOutlined,
     VideoCameraOutlined,
@@ -21,15 +22,19 @@ class LeftNav extends React.Component{
     state = {
         navRoute
     };
+    static propTypes = {
+        collapsed: PropTypes.bool.isRequired
+    };
 
-    _renderMeru = (nav)=>{
+
+_renderMeru = (nav)=>{
       return nav.map(item =>{
           if (!item.children){
               return(
                   <Menu.Item key={item.key}>
                       <Link to={item.key}>
-                          <span className={item.icon}/>
-                          <span>{item.title}</span>
+                          <span className={item.icon} style={this.props.collapsed ? {fontSize: 25} : {}}/>
+                          <span style={this.props.collapsed ? {display: "none"} : {}}>{item.title}</span>
                       </Link>
                   </Menu.Item>
               )
@@ -37,8 +42,8 @@ class LeftNav extends React.Component{
               return(
                   <SubMenu key={item.key}
                            title={ <span>
-                                    <span className={item.icon}/>
-                                    <span>{item.title}</span>
+                                    <span className={item.icon} style={this.props.collapsed ? {fontSize: 25} : {}}/>
+                                    <span style={this.props.collapsed ? {display: "none"} : {}}>{item.title}</span>
                            </span>  }>
                       {this._renderMeru(item.children)}
                   </SubMenu>
@@ -50,7 +55,7 @@ class LeftNav extends React.Component{
    render() {
        let path = this.props.location.pathname;
        return(
-           <Sider trigger={null} collapsible collapsed={this.state.collapsed} className="text-color">
+           <Sider trigger={null} collapsible collapsed={this.props.collapsed} className="text-color">
                <div className="logo" >
                    <div className="logo-img">
                        <img src={imglop} alt=""/>
