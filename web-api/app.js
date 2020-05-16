@@ -3,8 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+//引入api
 const adminRoutes = require("./routes/admin");
+//数据token持久化
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var dbdata = require("./config/config").database;
+var sessionStore = new MySQLStore({
+  host: dbdata.HOST,
+  port: dbdata.PORT,
+  user: dbdata.USER,
+  password: dbdata.PASSWORD,
+  database: dbdata.DATABASE
+});
+
+//权限
+var auth = require('./middleWare/auth');
 
 var app = express();
 
@@ -18,6 +32,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(session({
+  key:"itback",
+  secret:"itback",//加密字符串
+  resave:false,//是否强制保存session，即使没有变化
+  saveUninitialized:true,
+  cookie:{maxAge:24*3600*1000},
+  rolling:true,//每次重置
+  store:sessionStore //创建的表，数据储存表
+}));
+
+app.use(auth);
 
 app.use("/api/auth/admin",adminRoutes);
 

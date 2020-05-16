@@ -15,6 +15,8 @@ import Account from "./../setting/pages/account"
 import Member from "./../setting/pages/member"
 import Nott from "./../404/Nott"
 
+import {isLogin} from "./../../api/admin"
+
 
 import LeftNav from "./components/left-nav/left-nav"
 import RigthHeader from "./components/rigth-header/rigth-header"
@@ -36,6 +38,9 @@ class Admin extends React.Component{
     };
 
    render() {
+       if (!isLogin()){
+           return <Redirect to={"/login"}/>
+       }
 
        return (
 
