@@ -1,17 +1,18 @@
 .logo{
     width: 100%;
     height: 150px;
-
 }
 .logo .logo-img{
     width: 50%;
+    min-width: 80px;
+    height: 85px;
     border-radius: 50%;
+    border: 1px #ffff99 solid;
     overflow: hidden;
-    border: 3px #ffff99 solid;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 .logo .logo-img img{
-    width: 100%;
+    width:  100%;
 }
 .logo h3{
     color: aliceblue;
