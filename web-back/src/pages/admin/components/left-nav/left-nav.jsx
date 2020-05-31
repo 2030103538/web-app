@@ -13,6 +13,7 @@ import './fonts/iconfont.css'
 import "./left-nav.css"
 import { gatUser } from './../../../../api/admin'
 import navRoute from "./config/navRoute"
+import config from "./../../../../config/config"
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -82,7 +83,7 @@ class LeftNav extends React.Component{
            <Sider trigger={null} collapsible collapsed={this.props.collapsed} className="text-color">
                <div className="logo" >
                    <div className="logo-img">
-                       <img src={this.state.g_img} alt=""/>
+                       <img src={config.H_URL+this.state.g_img} alt=""/>
                    </div>
                    <h3>{this.state.g_neme}</h3>
                </div>

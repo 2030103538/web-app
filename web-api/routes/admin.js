@@ -36,6 +36,7 @@ router.post('/reg',(req,res,next)=>{
 
 router.post('/login',(req,res,next)=>{
    const {g_zhanghao,g_mima} = req.body;
+    // console.log(g_zhanghao);
     const md5mima = md5(g_mima,md5key);
 
    if (!g_zhanghao ||  !g_mima){
@@ -47,8 +48,12 @@ router.post('/login',(req,res,next)=>{
        let sql = `SELECT * FROM t_g_guanliyuan WHERE g_zhanghao = ? AND g_mima = ?`;
        let value = [g_zhanghao,md5mima];
        Query(sql,value).then((val)=>{
+           console.log(val);
            if(val.code === 1){
 
+               // console.log(val);
+               // console.log(val.data);
+               // console.log(val.data[0]);
                const {id,g_zhanghao,g_mima,g_neme,g_img} = val.data[0];
 
                let userData = {id,g_zhanghao,g_mima,g_neme};

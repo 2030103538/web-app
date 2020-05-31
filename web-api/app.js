@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 //引入api
 const adminRoutes = require("./routes/admin");
+const zhiboRoutes = require("./routes/zhibo");
+const activitiesRoutes = require("./routes/activities");
+const lifejobRoutes = require("./routes/lifejob");
 //数据token持久化
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
@@ -43,9 +46,12 @@ app.use(session({
   store:sessionStore //创建的表，数据储存表
 }));
 
-app.use(auth);
+//app.use(auth);
 
 app.use("/api/auth/admin",adminRoutes);
+app.use("/api/auth/live",zhiboRoutes);
+app.use("/api/auth/activities",activitiesRoutes);
+app.use("/api/auth/lifejob",lifejobRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

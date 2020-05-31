@@ -5,6 +5,7 @@ import { gatUser, xiugai, setUser } from './../../../api/admin'
 import puBsub from 'pubsub-js'
 
 import config from './../../../config/config'
+import UploadList from '../../../components/UploadList'
 import Xiugai from './xiugai'
 class Account extends React.Component {
     constructor(props){
@@ -36,40 +37,6 @@ class Account extends React.Component {
         })
     }
 
-
-    beforeUpload =(file)=> {
-        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-        if (!isJpgOrPng) {
-            message.error('You can only upload JPG/PNG file!');
-        }
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isLt2M) {
-            message.error('Image must smaller than 2MB!');
-        }
-        return isJpgOrPng && isLt2M;
-    };
-
-
-
-    handleChange = info => {
-        console.log(info);
-        if (info.file.status === 'uploading') {
-            this.setState({ loading: true });
-            return;
-        }
-        if (info.file.status === 'done') {
-            console.log(info.file);
-            // Get this url from response in real world.
-           if (info.file.response && info.file.response.status === 0){
-               message.success('头像上传成功');
-               const g_img = config.H_URL + info.file.response.data.g_img;
-               console.log(g_img);
-               this.setState({
-                   g_img,
-                   loading:false
-               })
-           }
-        }};
 
     _xiugai = () =>{
         this.setState({
@@ -117,6 +84,16 @@ class Account extends React.Component {
             },
         };
 
+        const upload_fun = (data)=>{
+
+            // console.log(data);
+            // console.log(data.file.response.data.g_img);
+            // console.log(data.file.response.msg);
+            this.setState({
+                g_img:data.file.response.data.g_img
+            });
+           message.success(data.file.response.msg)
+        };
 
         return(
             <Card title={'管理员信息'}>
@@ -146,18 +123,13 @@ class Account extends React.Component {
                      name="g_img"
                      label={'管理员头像'}
                  >
-
-                     <Upload
-                         name="g_img"
-                         listType="picture-card"
-                         className="avatar-uploader"
-                         showUploadList={false}
-                         action="/api/auth/admin/upload_img"
-                         beforeUpload={this.beforeUpload}
-                         onChange={this.handleChange}
-                     >
-                         {this.state.g_img ? <img src={this.state.g_img} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                     </Upload>
+                     <UploadList
+                         upload_name={"g_img"}
+                         upload_title={"上传头像"}
+                         upload_url={'/api/auth/admin/upload_img'}
+                         upload_fun={upload_fun}
+                         upload_img={this.state.g_img}
+                     />
 
                  </Form.Item>
 

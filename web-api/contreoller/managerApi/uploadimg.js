@@ -23,7 +23,13 @@ function uploadimg(up_path) {
 }
 
 const admin_img = uploadimg(path.join(__dirname,'../../public/images/admin'));
+const zhibo_img = uploadimg(path.join(__dirname,'../../public/images/zhibo'));
+const activities_img = uploadimg(path.join(__dirname,'../../public/images/activities'));
+const lifejob_img = uploadimg(path.join(__dirname,'../../public/images/lifejob'));
 
 module.exports = {
-    admin_img
+    admin_img,
+    zhibo_img,
+    activities_img,
+    lifejob_img
 };

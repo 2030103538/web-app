@@ -9,15 +9,17 @@ import Login from "./pages/login/login"
 import Admin from "./pages/admin/admin"
 
 
-function App() {
-  return (
-    <HashRouter>
-        <Switch>
-            <Route path={"/login"} component={Login}/>
-            <Route path={"/"} component={Admin}/>
-        </Switch>
-    </HashRouter>
-  );
+class App extends React.Component{
+      render() {
+          return (
+              <HashRouter>
+                  <Switch>
+                      <Route path={"/login"} component={Login}/>
+                      <Route path={"/"} component={Admin}/>
+                  </Switch>
+              </HashRouter>
+          );
+      }
 }
 
 const mapStateToProps = (state)=>{

@@ -22,6 +22,8 @@ let Query = (sql, value)=>{
             }
             // 3.3 通过连接去查询数据库
             connection.query(sql, value,  (error, results, fields) =>{
+
+
                 // 3.4 关闭连接
                 connection.release();
 
