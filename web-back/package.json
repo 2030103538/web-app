@@ -15,7 +15,7 @@
     "echarts": "^4.7.0",
     "echarts-for-react": "^2.0.15-beta.1",
     "http-proxy-middleware": "^1.0.3",
-    "moment": "^2.26.0",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "pubsub-js": "^1.8.0",
     "rc-queue-anim": "^1.8.5",
